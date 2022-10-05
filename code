@@ -1,0 +1,17 @@
+import telebot
+from telebot import types
+import random
+API_KEY = (your tg API_KEY)
+bot = telebot.TeleBot(API_KEY)
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    item1 = types.KeyboardButton('🦊')
+    markup.add(item1)
+    bot.send_message(message.chat.id, 'hi', reply_markup=markup)
+@bot.message_handler(content_types=['text'])
+def bot_message(message):
+    if message.chat.type == 'private':
+        if message.text == '🦊':
+            bot.send_message(message.chat.id, 'Your fox ' + "https://randomfox.ca/?i=" + str(random.randint(1,123)))
+bot.polling(none_stop=True)
